@@ -1,0 +1,16 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');
+const {batchReport,lineReport,frameDuration,handoffReport}=require('../docs/pro-resource-tools.js');
+const srt='1\n00:00:00,500 --> 00:00:02,500\nHello.\n\n2\n00:00:02,550 --> 00:00:03,550\nA long second caption.\n';
+test('batch report flags the actual long cue and short intervening gap',()=>{const x=batchReport(srt,17,.1);assert.equal(x.cues,2);assert.equal(x.flagged,1);assert.equal(x.rows[0].gapBeforeSeconds,null);assert.equal(x.rows[1].belowChosenGap,true);assert.equal(x.rows[1].aboveChosenCps,true);});
+test('batch boundaries use strict greater-than CPS and smaller-than gap',()=>{const x=batchReport(srt,22,.05);assert.equal(x.flagged,0);});
+test('invalid thresholds and unsupported SRT do not produce healthy reports',()=>{assert.throws(()=>batchReport(srt,0,.1));assert.throws(()=>batchReport(srt,17,-1));assert.throws(()=>batchReport('',17,.1));});
+test('line helper counts Unicode code points and preserves user breaks',()=>{const x=lineReport('A 😀\n你好',4,2);assert.equal(x.lines[0].characters,3);assert.equal(x.lineCount,2);assert.equal(x.tooManyLines,false);});
+test('blank lines are visible in line-count diagnostics',()=>{assert.equal(lineReport('A\n\nB',42,2).tooManyLines,true);});
+test('invalid line limits fail rather than silently truncating text',()=>{assert.throws(()=>lineReport('A',0,2));assert.throws(()=>lineReport('',42,2));assert.throws(()=>lineReport('A',42,1.5));});
+test('rational FPS comparison uses the exact 24000/1001 ratio',()=>{const x=frameDuration(24000,24000,1001,24,1);assert.equal(x.seconds,1001);assert.equal(x.comparisonSeconds,1000);assert.equal(x.differenceSeconds,1);});
+test('zero frames is a valid duration, invalid frame rates are rejected',()=>{assert.equal(frameDuration(0,24,1,25,1).seconds,0);assert.throws(()=>frameDuration(1,24,0,25,1));assert.throws(()=>frameDuration(.5,24,1,25,1));assert.throws(()=>frameDuration(-1,24,1,25,1));});
+const full={master:true,roles:true,timing:true,source:true,target:true,issues:true};
+test('one missing prerequisite keeps the handoff in draft',()=>{const x=handoffReport({...full,master:false},0);assert.equal(x.status,'REVIEW_DRAFT');assert.deepEqual(x.missing,['master']);});
+test('open questions keep a fully checked handoff in draft',()=>{assert.equal(handoffReport(full,1).status,'REVIEW_DRAFT');});
+test('complete self-report allows human handoff but never platform approval',()=>{const x=handoffReport(full,0);assert.equal(x.status,'READY_FOR_HUMAN_HANDOFF');assert.equal(x.platformApproval,false);});
+test('invalid question counts and nonboolean check values cannot imply completion',()=>{assert.throws(()=>handoffReport(full,-1));assert.throws(()=>handoffReport(full,.5));assert.equal(handoffReport({...full,timing:'true'},0).status,'REVIEW_DRAFT');});
