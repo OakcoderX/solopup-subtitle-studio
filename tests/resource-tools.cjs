@@ -1,0 +1,16 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const {readingSpeed,parseSrt,compareSrt,filenames,workflow}=require('../docs/resource-tools.js');
+const cue='1\n00:00:00,500 --> 00:00:02,500\n你好。\n';
+test('reading speed excludes line breaks and counts Unicode code points including spaces',()=>{const x=readingSpeed('A 😀\r\n你',2,2);assert.equal(x.count,4);assert.equal(x.cps,2);assert.equal(x.exceeds,false);});
+test('zero, negative, NaN and infinite duration are rejected',()=>{for(const n of [0,-1,NaN,Infinity])assert.throws(()=>readingSpeed('text',n,17));});
+test('threshold and empty text must be meaningful',()=>{assert.throws(()=>readingSpeed('',2,17));assert.throws(()=>readingSpeed('text',2,0));});
+test('BOM, CRLF, multi-line text and dot milliseconds normalize safely',()=>{const x=parseSrt('\ufeff'+cue.replace(/,/g,'.').replace(/\n/g,'\r\n'));assert.deepEqual(x,[{start:500,end:2500,text:'你好。'}]);});
+test('invalid minute, reverse duration, missing text and malformed block are rejected',()=>{for(const x of [cue.replace('00:00:00','00:60:00'),cue.replace('02,500','00,100'),cue.replace('你好。',''),cue+'\nunknown'])assert.throws(()=>parseSrt(x));});
+test('nonsequential IDs and overlapping tracks are rejected',()=>{assert.throws(()=>parseSrt(cue.replace(/^1/,'2')));assert.throws(()=>parseSrt(cue+'\n2\n00:00:02,000 --> 00:00:03,000\nNext.'));});
+test('matching timings can align different language text',()=>{assert.equal(compareSrt(cue,cue.replace('你好。','Hello.')).aligned,true);});
+test('one millisecond mismatch or extra cue does not align',()=>{assert.deepEqual(compareSrt(cue,cue.replace('02,500','02,501')).mismatches,[1]);const extra=cue+'\n2\n00:00:03,000 --> 00:00:04,000\nNext.';assert.equal(compareSrt(cue,extra).aligned,false);});
+test('errors identify source versus translation',()=>{assert.throws(()=>compareSrt('',cue),/Source/);assert.throws(()=>compareSrt(cue,''),/Translation/);});
+test('filename helper preserves multi-dot and Unicode basenames',()=>{assert.deepEqual(filenames('第01集.final.mp4','srt'),{zh:'第01集.final.zh.srt',en:'第01集.final.en.srt'});assert.equal(filenames('Episode','itt').en,'Episode.en.itt');});
+test('filename helper rejects paths and reserved characters',()=>{for(const x of ['../private.mp4','C:\\private.mp4','clip?.mp4','.','clip.'])assert.throws(()=>filenames(x,'srt'));assert.throws(()=>filenames('clip.mp4','exe'));});
+test('workflow selector distinguishes offline review from provider production',()=>{assert.match(workflow('bilingual','paired'),/no AI key/);assert.match(workflow('sdh','source'),/may incur charges/);assert.match(workflow('sdh','video'),/final audio/);assert.throws(()=>workflow('unknown','paired'));});

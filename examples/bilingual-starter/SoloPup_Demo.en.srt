@@ -1,0 +1,11 @@
+1
+00:00:00,500 --> 00:00:02,000
+Don’t open the door yet.
+
+2
+00:00:02,200 --> 00:00:04,000
+I hear something outside.
+
+3
+00:00:04,200 --> 00:00:05,800
+Let’s check together.

@@ -12,6 +12,8 @@ SoloPup在本机运行，通过浏览器操作。可以直接使用编辑器，�
 
 [完整中文文档](docs/README.md) · [中文网站](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html)
 
+[Free browser tools & guides / 免费工具与指南](https://oakcoderx.github.io/solopup-subtitle-studio/resources.html) · [Synthetic starter kit / 合成示例包](https://oakcoderx.github.io/solopup-subtitle-studio/bilingual-demo.html) · [Preview feedback / 试用反馈](https://github.com/OakcoderX/solopup-subtitle-studio/issues/new/choose)
+
 ## 先不配置 AI，体验预览版
 
 [中文产品介绍](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html) · [无 API Key 试用步骤](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.zh-CN.html) · [费用与隐私说明](https://oakcoderx.github.io/solopup-subtitle-studio/faq.zh-CN.html)
