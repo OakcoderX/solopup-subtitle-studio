@@ -1,0 +1,38 @@
+name: Public preview feedback / 预览版反馈
+description: Share a reproducible subtitle-review problem or a first-use observation.
+title: "[rc.5 feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for trying SoloPup. Do not include keys, private media, private paths, client scripts or provider payloads. Synthetic examples are welcome."
+  - type: input
+    id: version
+    attributes:
+      label: Version and operating system / 版本与系统
+      placeholder: "2.0.0-rc.5, macOS version"
+    validations:
+      required: true
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Workflow / 工作方式
+      options:
+        - Offline paired-SRT review
+        - Ordinary subtitles and SDH
+        - Installation or browser resource
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What you tried / 操作步骤
+      description: Use a small synthetic or releasable example.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual behavior / 预期与实际
+    validations:
+      required: true

@@ -12,6 +12,8 @@ SoloPup runs locally in a browser. You can use the editor yourself or ask Codex 
 
 [Complete English documentation](docs/README.md) · [English website](https://oakcoderx.github.io/solopup-subtitle-studio/)
 
+[Free browser tools & guides / 免费工具与指南](https://oakcoderx.github.io/solopup-subtitle-studio/resources.html) · [Synthetic starter kit / 合成示例包](https://oakcoderx.github.io/solopup-subtitle-studio/bilingual-demo.html) · [Preview feedback / 试用反馈](https://github.com/OakcoderX/solopup-subtitle-studio/issues/new/choose)
+
 ## Try the preview without an AI key
 
 [Offline demo](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.html) · [SDH workflow](https://oakcoderx.github.io/solopup-subtitle-studio/sdh.html) · [Chinese-to-English review](https://oakcoderx.github.io/solopup-subtitle-studio/chinese-to-english.html) · [Cost, privacy and requirements](https://oakcoderx.github.io/solopup-subtitle-studio/faq.html)
