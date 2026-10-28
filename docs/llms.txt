@@ -43,3 +43,9 @@ Python 3.9+ and FFmpeg/ffprobe. macOS tested locally; Windows/Linux manual accep
 - https://oakcoderx.github.io/solopup-subtitle-studio/resources.html
 - https://oakcoderx.github.io/solopup-subtitle-studio/bilingual-demo.html
 Browser tools process input locally without uploads, storage, analytics or model calls. Mechanical checks are not human audiovisual approval.
+
+## Original review practice resources
+- https://oakcoderx.github.io/solopup-subtitle-studio/practice-hub.html
+- https://oakcoderx.github.io/solopup-subtitle-studio/review-templates.html
+- https://oakcoderx.github.io/solopup-subtitle-studio/script-library.html
+Four additional browser helpers provide mathematical/structural hints only. No AI calls or automatic platform approval.
