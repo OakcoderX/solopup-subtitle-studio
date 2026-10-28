@@ -1,0 +1,17 @@
+# SoloPup Subtitle Studio
+
+由 SoloPup 开发，采用 MIT 许可的本地字幕工作台，当前为 2.0.0-rc.5 公开预览版。
+
+核心功能为 SDH 无障碍字幕审校，以及保留中文配音的英文字幕本地化。支持分轨 ITT/SRT、逐屏对照与本地审核历史。双语编辑页使用中文控件，自动目标语言为英语 US/UK；日文、韩文规范摘要不代表对应自动生产已验证。
+
+已有中英 SRT 可离线导入人工校对；首次安装依赖需联网。云端 AI 需要自己的 Qwen Key 与模型权限，可能产生费用，并向配置的服务商发送任务所需输入。通常同一 Key 从适用试用额度转为按账号计费，并非另买收费 Key。先评估真实对白小样，再准备批量预算。保存配置不调用模型，也不验证权限。
+
+需要 Python 3.9+、FFmpeg/ffprobe 和现代浏览器。macOS 已在本机验证，Windows/Linux 尚未完成同等级人工验收。音节估算只供参考，输出需人工音画批准；格式通过不代表平台认证。
+
+- [SoloPup Subtitle Studio 字幕工作台](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html)
+- [SDH 无障碍字幕审校](https://oakcoderx.github.io/solopup-subtitle-studio/sdh.zh-CN.html)
+- [中文配音，英文字幕](https://oakcoderx.github.io/solopup-subtitle-studio/chinese-to-english.zh-CN.html)
+- [安装与字幕校对试用](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.zh-CN.html)
+- [Qwen：申请、测试，再准备批量制作](https://oakcoderx.github.io/solopup-subtitle-studio/qwen.zh-CN.html)
+- [费用、隐私与支持范围 FAQ](https://oakcoderx.github.io/solopup-subtitle-studio/faq.zh-CN.html)
+- [版本说明：2.0.0-rc.5](https://oakcoderx.github.io/solopup-subtitle-studio/release-notes.zh-CN.html)

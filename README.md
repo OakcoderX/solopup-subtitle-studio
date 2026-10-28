@@ -10,6 +10,8 @@ Bring transcription, translation, timing review and export into one project. Wor
 
 SoloPup runs locally in a browser. You can use the editor yourself or ask Codex to help prepare and check a project. Importing existing subtitle files and reviewing them does not require an AI account.
 
+[Complete English documentation](docs/README.md) · [English website](https://oakcoderx.github.io/solopup-subtitle-studio/)
+
 ## Try the preview without an AI key
 
 [Offline demo](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.html) · [SDH workflow](https://oakcoderx.github.io/solopup-subtitle-studio/sdh.html) · [Chinese-to-English review](https://oakcoderx.github.io/solopup-subtitle-studio/chinese-to-english.html) · [Cost, privacy and requirements](https://oakcoderx.github.io/solopup-subtitle-studio/faq.html)
@@ -65,7 +67,7 @@ Choose a workflow per project, retain separate source/translation review progres
 
 ## Set up Qwen before AI production
 
-Cloud AI production requires your own Qwen API key and accessible models. First check applicable trial quota and evaluate a short clip; prepare provider billing and budget before regular batch work. Usually the same key is used for trial and paid usage. [Qwen application and trial-to-production guide](docs/QWEN_SETUP.md).
+Cloud AI production requires your own Qwen API key and accessible models. First check applicable trial quota and evaluate a short clip; prepare provider billing and budget before regular batch work. Usually the same key is used for trial and paid usage. [Qwen application and trial-to-production guide](docs/QWEN_SETUP.en.md).
 
 Import both Chinese and English SRT files for a fully offline bilingual workflow. To generate drafts, optional local Faster Whisper can transcribe Chinese audio, and a configured text model can translate individual screens. The ordinary subtitle/SDH workflow also includes optional provider-assisted recognition and review.
 

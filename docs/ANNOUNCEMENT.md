@@ -1,45 +1,88 @@
+# Launch copy / 发布文案
+
+[English](ANNOUNCEMENT.en.md) · [中文](ANNOUNCEMENT.zh-CN.md)
+
 # SoloPup Subtitle Studio — public preview
 
-Developed by **SoloPup**.
+[English](PRODUCT.md) · [中文](PRODUCT.zh-CN.md)
+
+Developed by SoloPup. A local workspace for SDH accessibility captions and English subtitles that follow Chinese dialogue.
 
 ## Two core strengths
 
-### SDH: bring the sound of the story into the captions
+- SDH accessibility captions: review dialogue, speakers, meaningful effects, music and vocal delivery with the original video.
+- Chinese audio, English subtitles: compare source and translation together, follow source screen breaks and reveal order, and use advisory rhythm/syllable estimates.
 
-SDH (Subtitles for the Deaf and Hard of Hearing) is one of the system’s main strengths. Beyond dialogue and lyrics, accessible captions need to communicate relevant speaker identity, meaningful sound effects, music and vocal delivery, so viewers can follow the story and its emotional cues without relying fully on sound.
+For independent creators, subtitle editors, accessibility reviewers and localization teams. Organize episodes, save revision history, replay cues and export separate ITT or SRT tracks.
 
-The workspace organizes ordinary subtitles and SDH as separate tracks. Sound evidence and human review help determine which sounds matter, how to describe them accurately and when their captions should appear. Review individual cues against the video and retain editing and review history. AI proposes candidates; a human reviewer confirms the sound interpretation.
+## Start with existing subtitles
 
-### Chinese audio, English subtitles: follow the original performance
+Import matching Chinese/English SRT files for local review without an AI account. AI draft production needs your own Qwen API key and model access. Check applicable trial quota, evaluate a short real-dialogue sample, then prepare billing and budget for batch work. Usually the same key continues from trial to paid usage.
 
-Localize content for English-speaking viewers while keeping its Chinese soundtrack. First align the Chinese transcript to the spoken audio, then translate it screen by screen. Display both tracks over the video to check the source, translation and timing together.
+[Installation and offline trial](QUICKSTART.md) · [Qwen setup](QWEN_SETUP.en.md) · [Cost and privacy FAQ](FAQ.md)
 
-English screen changes should follow Chinese dialogue breaks and reveal information in the same order. Aim for comparable spoken length, rhythm and syllable count while preserving meaning and natural English. For example, a Chinese sentence spoken across two subtitle screens should preferably have two corresponding English screens, rather than revealing the whole sentence early.
+## Inside the real workspace
 
-Estimated syllable counts and differences support review; they are not lip-sync verification or a strict requirement for identical counts. Bilingual imports require matching screens and times. Export Chinese and English as separate ITT or SRT files.
+These are actual application screenshots with synthetic demo data. Only the movie artwork is AI-generated. Imported example subtitles do not match spoken dialogue in the demo, so this is not an ASR or translation benchmark. Interface metrics and pending review states are real. Controls are shown in Chinese.
+
+![Chinese and English subtitle review with matching cue times, CPS and estimated syllables](screenshots/bilingual-review.jpg)
+
+Chinese audio / English subtitle review: both tracks, corresponding timing and advisory syllable estimates.
+
+![SDH sound candidate, waveform, audio preview and human decision controls](screenshots/sdh-sound-review.jpg)
+
+SDH sound review: listen to a synthetic candidate, locate it in the video and keep, revise or remove it.
+
+![Project workflows, independent review progress and SRT export](screenshots/projects-and-export.jpg)
+
+Projects and export: choose a workflow, retain separate review progress and export ITT or SRT.
+
+## Preview status
+
+Version 2.0.0-rc.5 is a public preview, MIT licensed. Python 3.9+, FFmpeg/ffprobe and a modern browser are required. macOS has local verification; Windows/Linux manual acceptance is incomplete. The bilingual editor uses Chinese controls. Human audiovisual approval remains necessary; local checks are not platform certification.
+
+[SDH workflow](SDH.md) · [Bilingual workflow](BILINGUAL.md) · [Release notes](RELEASE_NOTES.md)
 
 
-## 中文发布说明
+---
 
-由 **SoloPup** 开发。
+# SoloPup Subtitle Studio — 公开预览版
+
+[English](PRODUCT.md) · [中文](PRODUCT.zh-CN.md)
+
+由 SoloPup 开发。面向 SDH 无障碍字幕，以及跟随中文配音的英文字幕制作的本地工作台。
 
 ## 两大核心亮点
 
-### SDH：把听见的故事，也写进字幕
+- SDH 无障碍字幕：对照原片审校对白、说话人、重要音效、音乐及声音表现。
+- 中文配音配英文字幕：中英同屏对照，跟随中文断句与信息顺序，用节奏和音节估算辅助审校。
 
-SDH（Subtitles for the Deaf and Hard of Hearing）是面向聋人及听障观众的无障碍字幕，也是本系统最大的亮点之一。除对白与歌词外，还需要表达影响理解的说话人身份、重要音效、音乐及声音发生方式，让观众在无法充分听到声音时，也能理解情节与情绪。
+面向独立创作者、字幕编辑、无障碍审校者与本地化团队。统一管理剧集、保存修改历史、逐句回放，分别导出 ITT 或 SRT。
 
-工作台将普通字幕与 SDH 分轨组织，结合声音证据和人工复核，帮助判断哪些声音值得写、如何准确表述，以及何时出现和消失。字幕可回到原片逐条核对，并保留修改与审核记录。AI 提供候选，最终声音判断由审校者确认。
+## 从已有字幕开始
 
-### 中文配音，英文字幕：跟着原声讲故事
+导入屏数、时码对应的中英 SRT，即可不使用 AI 账号进行本地审校。AI 初稿制作需要自己的 Qwen API Key 与模型权限。先核对适用试用额度，用真实对白小片段评估，再准备批量计费与预算。通常同一个 Key 从试用继续用于付费调用。
 
-面向保留中文配音、供英语观众观看的内容。先依据中文原声校准中文字幕，再逐屏翻译为英文；画面中可同时显示中英两轨，方便核对原文、翻译和时间。
+[安装与离线试用](QUICKSTART.zh-CN.md) · [Qwen 配置](QWEN_SETUP.zh-CN.md) · [费用与隐私 FAQ](FAQ.zh-CN.md)
 
-英文屏幕切换尽量对应中文断句，跟随原声信息出现的顺序，在准确、自然的基础上尽量贴近中文发音的长度、节奏和音节。例如中文分两屏说完的一句话，英文也优先拆成对应的两屏，避免提前透露下一句的信息。
+## 实际界面
 
-工作台显示音节估算与差值，辅助审校；这不是配音口型验证，也不强求每句音节完全相等。中英双语导入要求屏数和时码对应，两种语言分别导出 ITT 或 SRT 文件。
+以下为使用合成演示数据的实际运行截图，只有播放器场景画面由 AI 生成。字幕为导入的示例文字，与演示视频中的发音不对应，不能证明识别或翻译质量。界面指标与待审核状态真实显示，截图使用中文控件。
 
+![中英字幕校对：对应时码、CPS 读速与音节估算](screenshots/bilingual-review.jpg)
 
-MIT licensed. AI production uses your own Qwen API key. Applicable trial quota varies by model, account and region. Existing paired SRT files can be reviewed offline. Human audiovisual approval remains required.
+中文配音配英文字幕：两轨同时显示，核对对应时码，参考音节估算。
 
-[Source](https://github.com/OakcoderX/solopup-subtitle-studio) · [Download](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5)
+![SDH 声音候选、原声波形、短音频与人工判断操作](screenshots/sdh-sound-review.jpg)
+
+SDH 声音判断：试听合成候选，定位原片，再决定保留、修改或删除。
+
+![项目工作方式、独立审核进度与 SRT 导出](screenshots/projects-and-export.jpg)
+
+项目管理与导出：按项目选择工作方式，保留独立审核进度，导出 ITT 或 SRT。
+
+## 预览版范围
+
+2.0.0-rc.5 为 MIT 许可的公开预览版。运行需要 Python 3.9+、FFmpeg/ffprobe 与现代浏览器。macOS 已在本机验证，Windows/Linux 尚未完成同等级人工验收。双语编辑页使用中文控件，输出仍需人工音画批准；程序检查不代表平台认证。
+
+[SDH 工作方式](SDH.zh-CN.md) · [中英双语工作方式](BILINGUAL.zh-CN.md) · [版本说明](RELEASE_NOTES.zh-CN.md)

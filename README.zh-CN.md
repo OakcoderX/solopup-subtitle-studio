@@ -1,18 +1,20 @@
 # SoloPup Subtitle Studio
 
-[CI configuration](docs/ci/checks.yml) · [MIT](LICENSE) · [Download](https://github.com/OakcoderX/solopup-subtitle-studio/releases) · [Website](https://oakcoderx.github.io/solopup-subtitle-studio/)
+[CI 配置](docs/ci/checks.yml) · [MIT](LICENSE) · [下载](https://github.com/OakcoderX/solopup-subtitle-studio/releases) · [中文网站](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html)
 
 **由 SoloPup 开发的本地字幕工作台，核心亮点是 SDH 无障碍字幕制作，以及保留中文配音的英文字幕本地化。**
 
-[English](README.md) · [快速开始](docs/QUICKSTART.md) · [编程助手规则](AGENTS.md)
+[English](README.md) · [快速开始](docs/QUICKSTART.zh-CN.md) · [编程助手规则](AGENTS.md)
 
 把转写、翻译、校时、审核和导出放进同一个项目。你可以制作普通字幕和SDH无障碍字幕，也可以保留中文配音，在同屏校对中文字幕与英文译文。每条字幕都能回到原片查看，修改与审核有记录。
 
 SoloPup在本机运行，通过浏览器操作。可以直接使用编辑器，也可以让Codex协助整理素材、生成初稿和检查问题。导入已有字幕、播放和人工校对不需要AI账号。
 
+[完整中文文档](docs/README.md) · [中文网站](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html)
+
 ## 先不配置 AI，体验预览版
 
-[中文产品介绍](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html) · [无 API Key 试用步骤](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.html) · [费用与隐私说明](https://oakcoderx.github.io/solopup-subtitle-studio/faq.html)
+[中文产品介绍](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html) · [无 API Key 试用步骤](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.zh-CN.html) · [费用与隐私说明](https://oakcoderx.github.io/solopup-subtitle-studio/faq.zh-CN.html)
 
 在 [v2.0.0-rc.5 发布页](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5)下载 **Public.zip** 资产，解压后按下方步骤启动。合成静音示例用于体验编辑，不代表识别质量。首次安装需下载依赖；已有字幕的本地审校无需云端 AI。
 
@@ -65,7 +67,7 @@ SDH（Subtitles for the Deaf and Hard of Hearing）是面向聋人及听障观�
 
 ## AI制作前先配置Qwen
 
-AI识别、翻译和复核需要自己的Qwen API Key及模型权限。先核对适用的试用额度、测试小片段，再准备计费与预算做正式批量；通常同一个Key先使用试用额度，再按账户设置计费，不是另买“收费Key”。[申请与测试指南](docs/QWEN_SETUP.md)。
+AI识别、翻译和复核需要自己的Qwen API Key及模型权限。先核对适用的试用额度、测试小片段，再准备计费与预算做正式批量；通常同一个Key先使用试用额度，再按账户设置计费，不是另买“收费Key”。[申请与测试指南](docs/QWEN_SETUP.zh-CN.md)。
 
 同时导入中文、英文SRT时，可完全离线整理和校对。需要自动初稿时，可选本地Faster Whisper识别中文，再通过配置的文字模型逐屏翻译；普通字幕和SDH流程也提供可选的接口识别与复核。
 
@@ -86,7 +88,7 @@ Windows使用`.venv\Scripts\python.exe`。打开`http://127.0.0.1:8877/projects`
 
 制作自己的字幕时，将示例路径换成本机视频即可。项目、字幕、审核历史保存在本机`Subtitle_Library/`和`Subtitle_Projects/`，请与引用的原视频一起备份。换用不同母本后应重新校时。公开包不附带实际节目、角色表、剧本、歌曲录音或编辑数据库。
 
-使用Codex时，在解压目录打开新对话，请它先读`AGENTS.md`。直接使用工作台时，从项目页开始。[快速开始](docs/QUICKSTART.md)和[开发指南](docs/DEVELOPMENT.md)提供详细步骤。
+使用Codex时，在解压目录打开新对话，请它先读`AGENTS.md`。直接使用工作台时，从项目页开始。[快速开始](docs/QUICKSTART.zh-CN.md)和[开发指南（英文）](docs/DEVELOPMENT.md)提供详细步骤。
 
 ## 当前支持范围
 
@@ -107,4 +109,4 @@ node --test tests/*.cjs
 
 程序和原创通用文档采用MIT许可，见[LICENSE](LICENSE)和[许可范围](LICENSE_SCOPE.md)。第三方平台规范全文、格式Schema和私人项目信息不包含在公开包内。平台与服务商名称仅说明适配关系，不代表官方授权或认证。
 
-**当前版本：2.0.0-rc.5，公开预览候选版。** 详见[版本说明](docs/RELEASE_NOTES.md)。
+**当前版本：2.0.0-rc.5，公开预览候选版。** 详见[版本说明](docs/RELEASE_NOTES.zh-CN.md)。
