@@ -1,0 +1,23 @@
+# SoloPup Subtitle Studio
+
+> Developed by SoloPup. MIT-licensed local subtitle workspace. Public preview 2.0.0-rc.5, not a stable release.
+
+## Core workflows
+- SDH: review dialogue, speaker identity, meaningful sounds and music against final video; normal and SDH tracks stay separate.
+- Chinese audio to English subtitles: paired screen/timing review and separate language exports. English US/UK automatic targets. Bilingual controls currently use Chinese.
+
+## Cost and privacy
+Existing paired-SRT review runs locally without an AI account. Dependency installation needs internet initially. Cloud AI is optional, requires the user's provider account, may cost money, and sends required task inputs to that provider. Never describe cloud recognition as on-device.
+
+## Requirements and limits
+Python 3.9+ and FFmpeg/ffprobe. macOS tested locally; Windows/Linux manual acceptance incomplete. Exports: SRT, ITT. Synthetic demo is silent and proves no recognition accuracy. Syllable estimates are advisory. Human audiovisual approval is required; format checks are not platform acceptance.
+
+## Authoritative links
+- [Website](https://oakcoderx.github.io/solopup-subtitle-studio/)
+- [中文](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html)
+- [SDH](https://oakcoderx.github.io/solopup-subtitle-studio/sdh.html)
+- [Bilingual review](https://oakcoderx.github.io/solopup-subtitle-studio/chinese-to-english.html)
+- [Offline trial](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.html)
+- [FAQ](https://oakcoderx.github.io/solopup-subtitle-studio/faq.html)
+- [Source](https://github.com/OakcoderX/solopup-subtitle-studio)
+- [Preview download](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5)
