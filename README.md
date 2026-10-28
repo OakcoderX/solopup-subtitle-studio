@@ -32,6 +32,28 @@ English screen changes should follow Chinese dialogue breaks and reveal informat
 
 Estimated syllable counts and differences support review; they are not lip-sync verification or a strict requirement for identical counts. Bilingual imports require matching screens and times. Export Chinese and English as separate ITT or SRT files.
 
+## See the real workspace
+
+These are screenshots of the running application using synthetic demo data. Only the movie artwork is AI-generated; interface controls, cue text, metrics and review states are rendered by the application. The illustrative subtitle text was imported, not generated from the demo audio. The gallery demonstrates controls, not transcription or translation quality. Controls are shown in Chinese.
+
+### Chinese audio / English subtitle review
+
+![Chinese and English subtitle review with video, matching cue times, syllable estimates and CPS](docs/screenshots/bilingual-review.jpg)
+
+Compare both tracks, replay individual screens and check reading speed and estimated syllable differences. The example retains its pending human-review state.
+
+### SDH sound review
+
+![SDH sound-candidate review with waveform, short audio preview and keep, revise, remove actions](docs/screenshots/sdh-sound-review.jpg)
+
+Inspect a synthetic bell candidate, listen to its short audio clip, locate it in the video and decide whether to keep, revise or remove it. Candidate review and final subtitle approval are separate steps.
+
+### Projects and export
+
+![Project hub showing separate subtitle workflows, review progress and SRT project export](docs/screenshots/projects-and-export.jpg)
+
+Choose a workflow per project, retain separate source/translation review progress and export the project's subtitle tracks as ITT or SRT.
+
 ## What you can do
 
 - Organize episodes and draft versions through a shared project page and background queue. Add one to five episodes per batch; pause, retry or create a separate new draft.
