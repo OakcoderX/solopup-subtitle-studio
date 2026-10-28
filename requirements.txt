@@ -1,0 +1,3 @@
+# Audio fingerprint matching for fixed-song masters.
+numpy>=1.24
+# Optional local ASR: pip install -r requirements-asr.txt

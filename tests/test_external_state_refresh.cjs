@@ -1,0 +1,13 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync(require('node:path').join(__dirname,'../workbench/index.html'),'utf8');
+const source=html.slice(html.indexOf('function externalStateAction('),html.indexOf('let externalStateBusy='));
+const context={};vm.createContext(context);vm.runInContext(source,context);
+const current={_saveToken:'old'},remote={_saveToken:'new',standard:[],sdh:[]};
+assert.equal(context.externalStateAction(current,remote,false),'adopt');
+assert.equal(context.externalStateAction(current,remote,true),'warn');
+assert.equal(context.externalStateAction(remote,remote,true),'none');
+assert.equal(context.externalStateAction(current,{_saveToken:'new'},false),'none');
+assert.equal(context.externalStateAction({},remote,false),'none');
+assert.ok(html.includes('localStorage.setItem(key,JSON.stringify({state,soundDecisions,soundDirty,track'));
+assert.ok(html.indexOf('localStorage.setItem(key,JSON.stringify({state,soundDecisions,soundDirty,track')<html.indexOf('await adoptExternalState(fresh)'));
+console.log('External-state refresh guard passed: new tokens, draft protection, malformed state, backup before adoption.');

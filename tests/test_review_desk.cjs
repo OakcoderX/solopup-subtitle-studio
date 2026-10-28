@@ -1,0 +1,14 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
+const source=fs.readFileSync(path.join(__dirname,'../workbench/studio.js'),'utf8');
+const fn=source.slice(source.indexOf(' function selectAtPlayhead()'),source.indexOf(' function choose(c)'));
+const rows=[{id:'a',start:1,end:2},{id:'b',start:3,end:4}];
+const c={cues:()=>rows,video:{currentTime:1.5},track:'sdh',selected:null,key:x=>x.id,refresh:()=>{},loadWave:()=>{c.loads++},loads:0};
+c.current=()=>rows.find(x=>c.selected?.track===c.track&&x.id===c.selected.key);
+vm.createContext(c);vm.runInContext(fn,c);
+assert.equal(c.selectAtPlayhead().id,'a');assert.equal(c.loads,1);
+c.selectAtPlayhead();assert.equal(c.loads,1,'Do not reload waveform on every timeupdate');
+c.video.currentTime=2.25;assert.equal(c.selectAtPlayhead().id,'a','Keep selection in post-roll gap');
+c.video.currentTime=3.2;assert.equal(c.selectAtPlayhead().id,'b');assert.equal(c.loads,2);
+c.track='standard';c.selectAtPlayhead();assert.equal(c.selected.track,'standard');
+rows.length=0;c.selected=null;assert.equal(c.selectAtPlayhead(),undefined);
+console.log('Review desk selection regression passed.');
