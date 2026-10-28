@@ -15,3 +15,8 @@
 - [Qwen：申请、测试，再准备批量制作](https://oakcoderx.github.io/solopup-subtitle-studio/qwen.zh-CN.html)
 - [费用、隐私与支持范围 FAQ](https://oakcoderx.github.io/solopup-subtitle-studio/faq.zh-CN.html)
 - [版本说明：2.0.0-rc.5](https://oakcoderx.github.io/solopup-subtitle-studio/release-notes.zh-CN.html)
+
+## 中文免费工具与指南
+- https://oakcoderx.github.io/solopup-subtitle-studio/resources.zh-CN.html
+- https://oakcoderx.github.io/solopup-subtitle-studio/bilingual-demo.zh-CN.html
+四个浏览器小工具无需账号、不上传输入、不调用 AI；机械检查不等于人工音画批准。
