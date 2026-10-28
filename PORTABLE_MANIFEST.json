@@ -67,7 +67,7 @@
     "docs/sitemap.xml": "008f8710a4c81ec947a75959a8b60c8abc889a68ca480b43d4f0f8e29f2933e7",
     "docs/try-offline.html": "89f4e6ea97660574cac05a67ef3b3e132df7dd16099cb9dc924d335b4b4ce85d",
     "docs/try-offline.zh-CN.html": "042f128b0d643329c378665c20fab549369a510bd50441d667c5c54d43f39790",
-    "docs/zh.html": "3b932a4cc0371d675e057d741163dfef87d4c6d20328233cda2b60982c53dfa0",
+    "docs/zh.html": "6177363ee35f4f0073f99a078a71a840e1d6c55d44a9124c1d164ab1f775f5db",
     "examples/demo/README.md": "51105f39252bf2ce5c0e5b54a22a389b5ec55b972c6e11598d06c908bc9aad67",
     "examples/demo/normal.srt": "3c2a594f0af6bc20444fba08959a9b789697e1f04546c4906d9921059062a8ee",
     "examples/demo/sdh.srt": "3c2a594f0af6bc20444fba08959a9b789697e1f04546c4906d9921059062a8ee",
@@ -211,5 +211,5 @@
     "workbench/unified_export.py": "700facbf649ed78ed5b1c4186cf12b5827b1666861df98e850201f85b3b8aa9d",
     "workbench/whole_episode_repair.py": "bd6c3ca4b61f6535c71b7b7738b87a9348815dabe1f88ff88bac13b0b39d6a6e"
   },
-  "source_snapshot_sha256": "0e68dd025327e66a8f446db0c813e10e2e918e88b4d5a6a70e285e43b163e310"
+  "source_snapshot_sha256": "d2fdba186eb02ace3af01bc32b8264d086c77f62c545237d193fb3a22e0101a2"
 }
