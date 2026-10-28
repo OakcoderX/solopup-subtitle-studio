@@ -10,6 +10,12 @@
 
 SoloPup在本机运行，通过浏览器操作。可以直接使用编辑器，也可以让Codex协助整理素材、生成初稿和检查问题。导入已有字幕、播放和人工校对不需要AI账号。
 
+## 先不配置 AI，体验预览版
+
+[中文产品介绍](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html) · [无 API Key 试用步骤](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.html) · [费用与隐私说明](https://oakcoderx.github.io/solopup-subtitle-studio/faq.html)
+
+在 [v2.0.0-rc.5 发布页](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5)下载 **Public.zip** 资产，解压后按下方步骤启动。合成静音示例用于体验编辑，不代表识别质量。首次安装需下载依赖；已有字幕的本地审校无需云端 AI。
+
 ## 两大核心亮点
 
 ### SDH：把听见的故事，也写进字幕

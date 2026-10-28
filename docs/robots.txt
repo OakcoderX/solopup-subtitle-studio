@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://oakcoderx.github.io/solopup-subtitle-studio/sitemap.xml

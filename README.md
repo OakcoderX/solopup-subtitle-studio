@@ -10,6 +10,12 @@ Bring transcription, translation, timing review and export into one project. Wor
 
 SoloPup runs locally in a browser. You can use the editor yourself or ask Codex to help prepare and check a project. Importing existing subtitle files and reviewing them does not require an AI account.
 
+## Try the preview without an AI key
+
+[Offline demo](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.html) · [SDH workflow](https://oakcoderx.github.io/solopup-subtitle-studio/sdh.html) · [Chinese-to-English review](https://oakcoderx.github.io/solopup-subtitle-studio/chinese-to-english.html) · [Cost, privacy and requirements](https://oakcoderx.github.io/solopup-subtitle-studio/faq.html)
+
+Download the **Public.zip** asset from [v2.0.0-rc.5](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5), extract it and follow the quick start below. The synthetic silent demo demonstrates editing, not recognition quality. Initial setup downloads dependencies; existing subtitle review then needs no cloud AI.
+
 ## Two core strengths
 
 ### SDH: bring the sound of the story into the captions
