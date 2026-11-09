@@ -18,7 +18,7 @@ SoloPup在本机运行，通过浏览器操作。可以直接使用编辑器，�
 
 [中文产品介绍](https://oakcoderx.github.io/solopup-subtitle-studio/zh.html) · [无 API Key 试用步骤](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.zh-CN.html) · [费用与隐私说明](https://oakcoderx.github.io/solopup-subtitle-studio/faq.zh-CN.html)
 
-在 [v2.0.0-rc.5 发布页](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5)下载 **Public.zip** 资产，解压后按下方步骤启动。合成静音示例用于体验编辑，不代表识别质量。首次安装需下载依赖；已有字幕的本地审校无需云端 AI。
+在 [v2.0.0-rc.5 发布页](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5)下载推荐的 **Bilingual_Docs.zip** 资产，解压后按下方步骤启动。它包含完整程序和更新的中英文文档，运行代码与初始 Public.zip 相同。合成静音示例用于体验编辑，不代表识别质量。首次安装需下载依赖；已有字幕的本地审校无需云端 AI。
 
 ## 两大核心亮点
 
@@ -112,3 +112,4 @@ node --test tests/*.cjs
 程序和原创通用文档采用MIT许可，见[LICENSE](LICENSE)和[许可范围](LICENSE_SCOPE.md)。第三方平台规范全文、格式Schema和私人项目信息不包含在公开包内。平台与服务商名称仅说明适配关系，不代表官方授权或认证。
 
 **当前版本：2.0.0-rc.5，公开预览候选版。** 详见[版本说明](docs/RELEASE_NOTES.zh-CN.md)。
+

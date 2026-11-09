@@ -18,7 +18,7 @@ SoloPup runs locally in a browser. You can use the editor yourself or ask Codex 
 
 [Offline demo](https://oakcoderx.github.io/solopup-subtitle-studio/try-offline.html) · [SDH workflow](https://oakcoderx.github.io/solopup-subtitle-studio/sdh.html) · [Chinese-to-English review](https://oakcoderx.github.io/solopup-subtitle-studio/chinese-to-english.html) · [Cost, privacy and requirements](https://oakcoderx.github.io/solopup-subtitle-studio/faq.html)
 
-Download the **Public.zip** asset from [v2.0.0-rc.5](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5), extract it and follow the quick start below. The synthetic silent demo demonstrates editing, not recognition quality. Initial setup downloads dependencies; existing subtitle review then needs no cloud AI.
+Download the recommended **Bilingual_Docs.zip** asset from [v2.0.0-rc.5](https://github.com/OakcoderX/solopup-subtitle-studio/releases/tag/v2.0.0-rc.5), extract it and follow the quick start below. It contains the full application and updated Chinese and English documentation, with the same runtime code as the original Public.zip. The synthetic silent demo demonstrates editing, not recognition quality. Initial setup downloads dependencies; existing subtitle review then needs no cloud AI.
 
 ## Two core strengths
 
@@ -112,3 +112,4 @@ Tests use temporary projects and synthetic data, without paid AI calls. A GitHub
 Code and original general documentation are MIT licensed; see [LICENSE](LICENSE) and [LICENSE_SCOPE.md](LICENSE_SCOPE.md). Third-party platform manuals, schemas and private project knowledge are excluded. Obtain authoritative delivery documents from their owners. Provider and platform names describe interoperability, not endorsement.
 
 **Release:** 2.0.0-rc.5, a public preview candidate. See [release notes](docs/RELEASE_NOTES.md).
+
