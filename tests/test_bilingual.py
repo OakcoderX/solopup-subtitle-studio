@@ -32,6 +32,23 @@ class BilingualReview(unittest.TestCase):
   with self.assertRaises(ValueError):save(self.p,s,10)
   s=read(self.p);s['zh']=[]
   with self.assertRaises(ValueError):save(self.p,s,10)
+ def test_invalid_xml_text_does_not_commit_or_change_exports(self):
+  save(self.p,read(self.p),10)
+  before={str(p.relative_to(self.p)):p.read_bytes() for p in self.p.rglob('*') if p.is_file()}
+  for invalid in ['bad\x00text','bad\x0btext','bad\ud800text','bad\ufffetext']:
+   state=read(self.p);state['en'][0]['text']=invalid
+   with self.assertRaises(ValueError):save(self.p,state,10)
+   after={str(p.relative_to(self.p)):p.read_bytes() for p in self.p.rglob('*') if p.is_file()}
+   self.assertEqual(before,after)
+ def test_export_render_failure_does_not_commit_state_or_history(self):
+  from unittest.mock import patch
+  save(self.p,read(self.p),10)
+  before={str(p.relative_to(self.p)):p.read_bytes() for p in self.p.rglob('*') if p.is_file()}
+  state=read(self.p);state['en'][0]['text']='Changed'
+  with patch('bilingual.write_itt_exports',side_effect=ValueError('synthetic export failure')):
+   with self.assertRaises(ValueError):save(self.p,state,10)
+  after={str(p.relative_to(self.p)):p.read_bytes() for p in self.p.rglob('*') if p.is_file()}
+  self.assertEqual(before,after)
  def test_no_wpm_gate_and_speed_bands(self):
   s=read(self.p);s['en'][0]['text']='x'*38
   self.assertFalse(any('21 CPS' in f for f in metrics(s)['en']['e1']['flags']))

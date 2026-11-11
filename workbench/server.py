@@ -12,6 +12,7 @@ import csv
 import html
 import json
 import mimetypes
+import math
 import re
 import shutil
 import subprocess
@@ -501,7 +502,7 @@ def make_handler(args: argparse.Namespace):
                         data["subtitleSpec"] = "prime"
                     for track in ("standard", "sdh"):
                         for cue in data[track]:
-                            if not isinstance(cue.get("text"), str) or not isinstance(cue.get("start"), (int, float)) or not isinstance(cue.get("end"), (int, float)) or cue["start"] < 0 or cue["end"] <= cue["start"] or cue["end"] > self.duration + 1:
+                            if not isinstance(cue, dict) or not isinstance(cue.get("text"), str) or not all(isinstance(cue.get(k), (int, float)) and not isinstance(cue[k], bool) and math.isfinite(cue[k]) for k in ("start", "end")) or cue["start"] < 0 or cue["end"] <= cue["start"] or cue["end"] > self.duration + 1:
                                 self.send_error(400, "Invalid subtitle cue")
                                 return
                 elif not isinstance(data, dict) or any(not isinstance(v, dict) or v.get("status") not in ({"", "KEEP", "REVISE", "REMOVE"} if route in {"/api/review", "/api/sounds/preview"} else {"KEEP", "REVISE", "REMOVE"}) for v in data.values()):
