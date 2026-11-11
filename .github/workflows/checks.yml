@@ -1,0 +1,78 @@
+name: Offline checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  full-offline:
+    name: Full offline / ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install FFmpeg (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install FFmpeg (macOS)
+        if: runner.os == 'macOS'
+        run: command -v ffmpeg >/dev/null || brew install ffmpeg
+      - run: python -m pip install -r requirements.txt
+      - name: Python full offline regression
+        run: python -m unittest discover -s tests
+      - name: JavaScript regression
+        shell: bash
+        run: node --test tests/*.cjs
+      - name: Synthetic media generation
+        run: python scripts/make_demo.py
+      - name: Scope disclosure
+        if: always()
+        shell: bash
+        run: echo 'Offline automated checks only. No manual UI, paid API, or platform delivery acceptance claimed.' >> "$GITHUB_STEP_SUMMARY"
+  windows-core-experimental:
+    name: Windows experimental core subset / Python ${{ matrix.python }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12']
+    # Explicit UTF-8 mode; this is not a Windows default-locale qualification.
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -r requirements.txt
+      - name: Core subset (all selected failures fail the job)
+        shell: pwsh
+        run: |
+          $modules = @('test_bilingual.py', 'test_transcript_validation.py', 'test_offline_media.py', 'test_public_contract.py')
+          foreach ($module in $modules) {
+            python -m unittest discover -s tests -p $module
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: JavaScript regression (explicit file expansion)
+        shell: pwsh
+        run: |
+          $files = @(Get-ChildItem tests -Filter '*.cjs' | ForEach-Object { $_.FullName })
+          if ($files.Count -eq 0) { throw 'No JavaScript tests discovered' }
+          node --test @files
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Scope and omissions (not passed tests)
+        if: always()
+        shell: pwsh
+        run: |
+          'EXPERIMENTAL: only four named Python modules and JavaScript tests. Full library/HTTP/process-lock tests, FFmpeg queue E2E, default-codepage behavior and manual desktop acceptance are NOT RUN. Known Windows instance-lock gap remains. A green subset does not qualify Windows support.' | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
