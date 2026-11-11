@@ -59,7 +59,7 @@ jobs:
       - name: Core subset (all selected failures fail the job)
         shell: pwsh
         run: |
-          $modules = @('test_bilingual.py', 'test_transcript_validation.py', 'test_offline_media.py', 'test_public_contract.py')
+          $modules = @('test_bilingual.py', 'test_transcript_validation.py', 'test_offline_media.py', 'test_public_contract.py', 'test_instance_lock.py')
           foreach ($module in $modules) {
             python -m unittest discover -s tests -p $module
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -75,4 +75,4 @@ jobs:
         if: always()
         shell: pwsh
         run: |
-          'EXPERIMENTAL: only four named Python modules and JavaScript tests. Full library/HTTP/process-lock tests, FFmpeg queue E2E, default-codepage behavior and manual desktop acceptance are NOT RUN. Known Windows instance-lock gap remains. A green subset does not qualify Windows support.' | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          'EXPERIMENTAL: five named Python modules including real subprocess lock tests and JavaScript tests. Full library/HTTP tests, FFmpeg queue E2E, default-codepage behavior and manual desktop acceptance are NOT RUN. A green subset does not qualify Windows support.' | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
