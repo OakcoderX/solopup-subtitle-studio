@@ -5,6 +5,7 @@ permissions:
 jobs:
   full-offline:
     name: Full offline / ${{ matrix.os }} / Python ${{ matrix.python }}
+    timeout-minutes: 20
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -21,7 +22,7 @@ jobs:
           node-version: '22'
       - name: Install FFmpeg (Linux)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+        run: command -v ffmpeg >/dev/null || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - name: Install FFmpeg (macOS)
         if: runner.os == 'macOS'
         run: command -v ffmpeg >/dev/null || brew install ffmpeg
@@ -39,6 +40,7 @@ jobs:
         run: echo 'Offline automated checks only. No manual UI, paid API, or platform delivery acceptance claimed.' >> "$GITHUB_STEP_SUMMARY"
   windows-core-experimental:
     name: Windows experimental core subset / Python ${{ matrix.python }}
+    timeout-minutes: 20
     runs-on: windows-latest
     strategy:
       fail-fast: false
