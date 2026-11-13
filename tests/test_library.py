@@ -63,6 +63,19 @@ class EpisodeHttpTests(unittest.TestCase):
   try:
    with urllib.request.urlopen(req)as r:return r.status,r.read()
   except urllib.error.HTTPError as e:return e.code,e.read()
+ def test_invalid_times_do_not_save_or_change_exports(self):
+  route='/episode/'+self.ids[0]+'/api/state';folder=self.folders[0]
+  state=json.loads(self.call(route)[1])
+  before={str(p.relative_to(folder)):p.read_bytes() for p in folder.rglob('*') if p.is_file()}
+  for track in ('standard','sdh'):
+   for field in ('start','end'):
+    for value in (float('nan'),float('inf'),float('-inf'),True,False):
+     with self.subTest(track=track,field=field,value=value):
+      incoming=copy.deepcopy(state)
+      incoming[track]=[{'id':'D1','start':0,'end':3,'text':'Synthetic fixture'}]
+      incoming[track][0][field]=value
+      self.assertEqual(self.call(route,incoming)[0],400)
+      self.assertEqual(before,{str(p.relative_to(folder)):p.read_bytes() for p in folder.rglob('*') if p.is_file()})
  def test_stale_sound_save_rejected(self):
   prefix='/episode/'+self.ids[0]
   data={'1':{'status':'KEEP','caption':'[laughing]'}}

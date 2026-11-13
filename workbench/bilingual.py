@@ -84,6 +84,9 @@ def save(project,data,duration):
             a,b=cue.get('start'),cue.get('end');text=cue.get('text')
             if not all(isinstance(x,(float,int)) and not isinstance(x,bool) and math.isfinite(x) for x in (a,b)) or not 0<=a<b<=duration+.001:raise ValueError('Invalid time')
             if not isinstance(text,str) or not text.strip() or len(text)>2000:raise ValueError('Invalid text')
+            # Reject characters XML 1.0 cannot represent before any history/state write.
+            if any(not (c in '\t\n\r' or 0x20<=ord(c)<=0xD7FF or 0xE000<=ord(c)<=0xFFFD or 0x10000<=ord(c)<=0x10FFFF) for c in text):
+                raise ValueError('Subtitle text contains unsupported control characters')
             new.update(start=a,end=b,text=text)
             changed=signature(new)!=signature(prior)
             if changed:
@@ -100,15 +103,23 @@ def save(project,data,duration):
         if cue.get('pairId',cue['id']) in changed_sources:
             cue['review']={'accepted':False,'invalidated':True};cue['translationSourceChanged']=True
     result['status']='REVIEW_DRAFT';result['updatedAt']=time.time()
+    # Render every derived artifact in isolation first. A validation/render error
+    # must not commit state, append a saved event, or leave exports at mixed revisions.
+    report=metrics(result)
+    with tempfile.TemporaryDirectory(prefix='bilingual-save-') as folder:
+        stage=Path(folder)
+        for lang in ('zh','en'):
+            (stage/f'{lang}_REVIEW_DRAFT.srt').write_text(srt(result[lang]),encoding='utf-8')
+        (stage/'QA_REVIEW_DRAFT.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+        (stage/'Bilingual_REVIEW_DRAFT.zip').write_bytes(export_bundle(result))
+        write_itt_exports(stage,result)
+        for name,body in srt_files(result).items():(stage/name).write_bytes(body)
+        artifacts={path.name:path.read_bytes() for path in stage.iterdir()}
     record(Path(project),'bilingual_subtitle_saved',old,result,reason='Chinese/English independent edits; changed Chinese invalidates paired translation review.',actor='workbench')
-    p=Path(project)/'bilingual_state.json';tmp=p.with_suffix('.tmp');tmp.write_text(json.dumps(result,ensure_ascii=False,indent=2));tmp.replace(p)
-    # Generated review exports follow the saved revision; no platform/final approval is inferred.
-    for lang in ('zh','en'):(Path(project)/f'{lang}_REVIEW_DRAFT.srt').write_text(srt(result[lang]))
-    fresh=read(project);report=metrics(fresh)
-    (Path(project)/'QA_REVIEW_DRAFT.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
-    (Path(project)/'Bilingual_REVIEW_DRAFT.zip').write_bytes(export_bundle(fresh))
-    write_itt_exports(project,fresh)
-    for name,body in srt_files(fresh).items():(Path(project)/name).write_bytes(body)
+    p=Path(project)/'bilingual_state.json';tmp=p.with_suffix('.tmp');tmp.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');tmp.replace(p)
+    for name,body in artifacts.items():
+        dest=Path(project)/name;tmp=dest.with_name(dest.name+'.tmp');tmp.write_bytes(body);tmp.replace(dest)
+    fresh=read(project)
     return {'state':fresh,'metrics':report}
 
 def srt(rows):
@@ -164,7 +175,7 @@ def write_itt_exports(project,state):
              'sourceVideoFrameRate':state.get('videoFrameRate'),'offsetSeconds':0,
              'files':{name:hashlib.sha256(data).hexdigest() for name,data in files.items()},
              'editorialApproval':False,'platformAcceptance':False}
-    (Path(project)/'ITT_EXPORT_REVIEW_STATUS.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2))
+    (Path(project)/'ITT_EXPORT_REVIEW_STATUS.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
     return receipt
 
 

@@ -1,5 +1,6 @@
 """Persistent episode library and one resumable background producer per service."""
 import csv
+import errno
 import json
 import os
 import signal
@@ -21,23 +22,55 @@ def fingerprint(path):
     s = p.stat()
     return [str(p.resolve()), s.st_size, s.st_mtime_ns]
 
+def acquire_instance_lock(path):
+    """Keep the descriptor alive: OS releases ownership on close or process exit."""
+    handle=Path(path).open('a+b')
+    try:
+        if os.name=='posix':
+            import fcntl
+            fcntl.flock(handle,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        elif os.name=='nt':
+            import msvcrt
+            if os.fstat(handle.fileno()).st_size==0:
+                handle.write(b'\0');handle.flush()
+            handle.seek(0)
+            msvcrt.locking(handle.fileno(),msvcrt.LK_NBLCK,1)
+        else:
+            raise RuntimeError('Exclusive library ownership is unsupported on this OS.')
+    except OSError as exc:
+        handle.close()
+        if exc.errno in (errno.EACCES,errno.EAGAIN,errno.EDEADLK):
+            raise RuntimeError('This project library is already open in another service.') from exc
+        raise
+    except BaseException:
+        handle.close();raise
+    return handle
+
 class Library:
     def __init__(self, root, start_worker=True, key_zip=None):
         self.root = Path(root).resolve()
         self.root.mkdir(parents=True, exist_ok=True)
+        # Own the library before runtime writes, SQLite setup, or recovery requeues.
+        self.instance_lock=acquire_instance_lock(self.root/'service.lock')
+        self.threads=[]
+        try:
+            self._initialize(start_worker,key_zip)
+        except BaseException:
+            if hasattr(self,'stop'):self.stop.set()
+            for thread in self.threads:
+                if thread.is_alive():thread.join(timeout=8)
+            try:
+                if hasattr(self,'db'):self.db.close()
+            finally:self.instance_lock.close()
+            raise
+
+    def _initialize(self,start_worker,key_zip):
         self.key_zip=Path(key_zip).resolve() if key_zip else None
         runtime=self.root/'runtime.json'
         if os.environ.get('SDH_ALIGN_PYTHON'):
             settings=json.loads(runtime.read_text()) if runtime.exists() else {}
             settings['timing_python']=os.environ['SDH_ALIGN_PYTHON'];runtime.write_text(json.dumps(settings))
         self.runtime=json.loads(runtime.read_text()) if runtime.exists() else {}
-        self.instance_lock=(self.root/'service.lock').open('a+')
-        if os.name=='posix':
-            import fcntl
-            try:fcntl.flock(self.instance_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-            except BlockingIOError:
-                self.instance_lock.close()
-                raise RuntimeError('This project library is already open in another service.')
         self.lock = threading.RLock()
         self.stop = threading.Event()
         self.processes = {}
